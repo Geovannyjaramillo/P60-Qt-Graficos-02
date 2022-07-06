@@ -99,7 +99,7 @@ void Principal::dibujar()
     int promedio = (notaA+notaB+notaC)/3;
     ui->outPromedio->setNum(promedio);
 
-    //Barras laterales con números
+    //Barras laterales con números//
     QPen pincel2;
     pincel2.setWidth(5);
     pincel2.setColor(Qt::red);
