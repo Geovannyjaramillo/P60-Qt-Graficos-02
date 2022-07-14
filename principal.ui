@@ -13,6 +13,13 @@
   <property name="windowTitle">
    <string>Principal</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="Resources.qrc">
+    <normaloff>:/img/histograma.png</normaloff>:/img/histograma.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(203, 231, 255);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="outCuadro">
     <property name="geometry">
@@ -29,6 +36,9 @@
       <height>500</height>
      </size>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="frameShape">
      <enum>QFrame::Box</enum>
     </property>
@@ -44,13 +54,18 @@
      <rect>
       <x>530</x>
       <y>10</y>
-      <width>142</width>
-      <height>183</height>
+      <width>124</width>
+      <height>150</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
      <item>
       <widget class="QGroupBox" name="groupBox">
+       <property name="font">
+        <font>
+         <family>Rockwell Nova</family>
+        </font>
+       </property>
        <property name="title">
         <string>Notas</string>
        </property>
@@ -63,7 +78,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="spinBox"/>
+         <widget class="QSpinBox" name="inNota1"/>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
@@ -73,7 +88,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="spinBox_2"/>
+         <widget class="QSpinBox" name="inNota2"/>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_3">
@@ -83,19 +98,44 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="spinBox_3"/>
+         <widget class="QSpinBox" name="inNota3"/>
+        </item>
+        <item row="3" column="0" colspan="2">
+         <widget class="QLabel" name="label_4">
+          <property name="font">
+           <font>
+            <family>Rockwell Nova</family>
+            <pointsize>11</pointsize>
+           </font>
+          </property>
+          <property name="text">
+           <string>PROMEDIO</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="pushButton">
-       <property name="text">
-        <string>Promediar</string>
-       </property>
-      </widget>
-     </item>
     </layout>
+   </widget>
+   <widget class="QLabel" name="outPromedio">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>170</y>
+      <width>61</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Rockwell Nova</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -104,7 +144,7 @@
      <x>0</x>
      <y>0</y>
      <width>682</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuArchivo">

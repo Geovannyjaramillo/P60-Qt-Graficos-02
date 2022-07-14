@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>img/Save.ico</file>
+        <file>img/histograma.png</file>
     </qresource>
 </RCC>

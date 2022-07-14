@@ -1,10 +1,6 @@
 #include "principal.h"
 #include "ui_principal.h"
 
-#include <QPainter>
-#include <QFileDialog>
-#include <QMessageBox>
-
 Principal::Principal(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Principal)
@@ -22,6 +18,11 @@ Principal::~Principal()
     delete ui;
 }
 
+void Principal::paintEvent(QPaintEvent *event)
+{
+    ui->outCuadro->setPixmap(lienzo);
+}
+
 void Principal::dibujar()
 {
     lienzo.fill(Qt::white);
@@ -34,19 +35,26 @@ void Principal::dibujar()
     // Crear un pincel para los bordes
     QPen pincel;
     pincel.setWidth(5);
-    pincel.setColor(Qt::red);
+    pincel.setColor(Qt::black);
     pincel.setJoinStyle(Qt::MiterJoin);
+    QColor rellenoBarra1(255, 200, 158);
 
     // Establecer el pincel al "pintor"
     painter.setPen(pincel);
+    painter.setBrush(rellenoBarra1);
 
-    // Dibujar primera barra
-    painter.drawRect(x+50, y+50,100,400);
+    //Obtener datos para la primera barra
+    int nota1 = ui->inNota1->value();
+    int altoN1 = this->getAlto(nota1);
+    int incYN1 = this-> incY(altoN1);
+
+    // ############Dibujar primera barra#############################
+    painter.drawRect(x+50, y+50+incYN1,100,altoN1);
 
     // Crear un objeto color para el relleno
-    QColor colorRelleno(190,120,162);
+    QColor colorRelleno(193, 231, 161);
     // Crear otro objeto color para el borde
-    QColor colorBorde(78,3,48);
+    QColor colorBorde(0,0,0);
 
     // Cambiar el color del pincel
     pincel.setColor(colorBorde);
@@ -57,20 +65,78 @@ void Principal::dibujar()
     // Establecer el color al brush (relleno)
     painter.setBrush(colorRelleno);
 
-    // Dibujar segunda barra
-    painter.drawRect(x+170, y+200, 100, 250);
+    //Obtener datos para la segunda nota
+    int nota2 = ui->inNota2->value();
+    int altoN2 = getAlto(nota2);
+    int incYN2 = this-> incY(altoN2);
+
+
+    // ##########Dibujar segunda barra#########################
+    painter.drawRect(x+170, y+50+incYN2, 100, altoN2);
 
     // Creando los colores de la tercera barra
-    QColor cRellenoBarra3(253, 253, 115);
-    QColor cBordeBarra3(174, 174, 51);
+    QColor cRellenoBarra3(109, 170, 244);
+    QColor cBordeBarra3(0,0,0);
 
-    // Estableciendo colores al puncel y al painter
+    // Estableciendo colores al pincel y al painter
     pincel.setColor(cBordeBarra3);
     painter.setPen(pincel);
     painter.setBrush(cRellenoBarra3);
 
-    // Dibujar tercera barra
-    painter.drawRect(x+290,y+350,100,100);
+    //Obtener datos para la tercera barra
+    int nota3 = ui->inNota3->value();
+    int altoN3 = getAlto(nota3);
+    int incYN3 = this-> incY(altoN3);
+
+    // #############Dibujar tercera barra######################
+    painter.drawRect(x+290,y+50+incYN3,100,altoN3);
+
+    //Dibujar linea horizontal de promedio
+    painter.drawRect(x,450-(altoN1+altoN2+altoN3)/3,500,1);
+
+    int notaA = ui->inNota1->value();
+    int notaB = ui->inNota2 ->value();
+    int notaC = ui->inNota3->value();
+    float promedio = (notaA+notaB+notaC)/3;
+    ui->outPromedio->setNum(promedio);
+
+    //Barras para escalas
+    QPen pincel2;
+    pincel2.setWidth(5);
+    pincel2.setColor(Qt::red);
+    painter.setPen(pincel2);
+    painter.drawLine(800,450,0,450);
+    painter.drawLine(30,0,30,800);
+
+    // Numeración de estudiantes en eje x
+
+    painter.drawText(85, 470, "NOTA 1");
+    painter.drawText(205, 470, "NOTA 2");
+    painter.drawText(325, 470, "NOTA 3");
+
+    //Escalas en Y con saltos de 5
+    int px = 10;
+    int py = 50;
+    int nFinal = 100;
+    int saltos = 5;
+    int pFinal = nFinal/saltos;
+
+    do{
+        painter.drawText(px, py, QString::number(nFinal));
+        py += pFinal;
+        nFinal -= saltos;
+    }while(nFinal>0);
+
+}
+
+int Principal::getAlto(int valor)
+{
+    return 4 * valor;
+}
+
+int Principal::incY(int alto)
+{
+    return 400 - alto;
 }
 
 
@@ -86,7 +152,21 @@ void Principal::on_actionGuardar_triggered()
     }
 }
 
-void Principal::on_pushButton_clicked(bool checked)
-{
 
+void Principal::on_inNota1_valueChanged(int arg1)
+{
+dibujar();
 }
+
+
+void Principal::on_inNota2_valueChanged(int arg1)
+{
+dibujar();
+}
+
+
+void Principal::on_inNota3_valueChanged(int arg1)
+{
+dibujar();
+}
+
